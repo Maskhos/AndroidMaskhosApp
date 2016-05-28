@@ -80,6 +80,7 @@
 
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:layout_width="match_parent"
+            android:id="@+id/spl_btn_toweb"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:text="Ver en Pagina Web.."

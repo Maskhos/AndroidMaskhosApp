@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.beardedhen.androidbootstrap.AwesomeTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="api" />
+
+    <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/ac_et_api"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.beardedhen.androidbootstrap.BootstrapButton
+        android:id="@+id/ac_btn_api"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Guardar API URL" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Example:http://10.10.43.149/apiRest/public/" />
+
+    <com.beardedhen.androidbootstrap.AwesomeTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="WEB" />
+
+    <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/ac_et_web"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Example:http://10.10.43.149/proyecto/public/" />
+
+    <com.beardedhen.androidbootstrap.BootstrapButton
+        android:id="@+id/ac_btn_web"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Guardar WEB URL" />
+</LinearLayout>

@@ -36,5 +36,8 @@
             android:label="Post Screen">
 
         </activity>
+        <activity
+            android:name=".View.SaveConfigurationActivity"
+            android:label="Post Screen"></activity>
     </application>
 </manifest>

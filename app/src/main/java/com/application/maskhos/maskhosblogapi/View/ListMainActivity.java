@@ -59,6 +59,7 @@ public class ListMainActivity extends ActivityMain implements RecyclerViewItemCl
         swipe = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         swipe.setOnRefreshListener(this);
         loading = (ProgressBar) findViewById(R.id.loading);
+
         swipe.setColorSchemeColors(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,

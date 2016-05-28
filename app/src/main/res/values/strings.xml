@@ -14,5 +14,6 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="api">http://192.168.75.1/apiRest/public/</string>
+    <string name="api">http://10.10.43.149/apiRest/public/</string>
+    <string name="web">http://10.10.43.149/proyecto/public/</string>
 </resources>

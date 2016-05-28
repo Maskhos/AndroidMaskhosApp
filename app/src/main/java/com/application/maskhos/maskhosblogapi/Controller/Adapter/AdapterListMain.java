@@ -40,12 +40,14 @@ import java.util.List;
 public class AdapterListMain extends ArrayAdapter<HashMap<String, String>> {
     private HashMap<String, String>[] map;
     private BitmapLruCache cache;
+    private String api;
 
-    public AdapterListMain(Context context, int resource, TokenResponse token) {
+    public AdapterListMain(Context context, int resource, TokenResponse token, String api) {
 
         super(context, resource, Arrays.asList(token.getData()));
         map = token.getData();
         cache = new BitmapLruCache.Builder().build();
+        this.api = api;
     }
 
     @Override
@@ -69,7 +71,7 @@ public class AdapterListMain extends ArrayAdapter<HashMap<String, String>> {
         final ProgressBar loading = (ProgressBar) convertView.findViewById(R.id.loading);
 
         Http http = HttpFactory.create(getContext());
-        http.get(getContext().getString(R.string.api) + "user/" + map[position].get("user_id"))
+        http.get(api + "user/" + map[position].get("user_id"))
                 .handler(new ResponseHandler<TokenResponse>() {
                     @Override
                     public void failure(NetworkError error) {
