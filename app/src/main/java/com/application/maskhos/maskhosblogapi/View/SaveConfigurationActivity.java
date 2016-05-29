@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.application.maskhos.maskhosblogapi.Model.interfaces.ActivityMain;
 import com.application.maskhos.maskhosblogapi.R;
@@ -91,6 +92,7 @@ public class SaveConfigurationActivity extends ActivityMain implements View.OnCl
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("web", et_web.getText().toString());
         editor.commit();
+        Toast.makeText(this,"Saved Web URL", Toast.LENGTH_SHORT).show();
     }
 
     private void saveApi() {
@@ -100,6 +102,8 @@ public class SaveConfigurationActivity extends ActivityMain implements View.OnCl
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("api", et_api.getText().toString());
         editor.commit();
+
+        Toast.makeText(this,"Saved API URL", Toast.LENGTH_SHORT).show();
 
 
     }

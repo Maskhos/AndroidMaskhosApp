@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.application.maskhos.maskhosblogapi.Controller.Adapter.AdapterListMain;
 import com.application.maskhos.maskhosblogapi.Controller.Adapter.AdapterRecyclerViewPost;
@@ -64,7 +65,7 @@ public class PostDetailActivity extends ActivityMain {
         controller = new ControllerMain(this) {
             @Override
             public void onClick(View v) {
-                switch (v.getId()){
+                switch (v.getId()) {
                     case R.id.spl_btn_toweb:
                         abrirWeb();
                         break;
@@ -123,10 +124,24 @@ public class PostDetailActivity extends ActivityMain {
         btn_toWeb.setOnClickListener(controller);
         Http http = HttpFactory.create(this);
 
-        http.get(controller.getUrl("comment/show/"+post.get("id")))
+        http.get(controller.getUrl("comment/show/" + post.get("id"))).timeout(10000)
                 .handler(new ResponseHandler<TokenResponse>() {
                     @Override
+                    public void complete() {
+                        super.complete();
+
+                    }
+
+                    @Override
+                    public void error(String message, HttpResponse response) {
+                        super.error(message, response);
+
+                        Toast.makeText(controller.getIns(), "Problem try again in shortly " + message, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
                     public void failure(NetworkError error) {
+                        Toast.makeText(controller.getIns(), "Problem try again in shortly ", Toast.LENGTH_SHORT).show();
                         super.failure(error);
                         error.name();
                     }

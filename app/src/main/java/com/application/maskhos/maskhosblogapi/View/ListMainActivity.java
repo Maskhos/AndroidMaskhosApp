@@ -95,8 +95,20 @@ public class ListMainActivity extends ActivityMain implements RecyclerViewItemCl
             case R.id.airport_menuRefresh:
 
                 setRefreshActionButtonState(true);
-                http.get(controller.getUrl("post"))
+                http.get(controller.getUrl("post")).timeout(10000)
                         .handler(new ResponseHandler<TokenResponse>() {
+                            @Override
+                            public void error(String message, HttpResponse response) {
+                                super.error(message, response);
+
+                                Toast.makeText(controller.getIns(), "Not correct please try againt", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(controller.getIns(), LoginActivity.class);
+                                progress.dismiss();
+                                startActivity(intent);
+
+                                finish();
+                            }
+
                             @Override
                             public void failure(NetworkError error) {
                                 super.failure(error);
@@ -137,11 +149,35 @@ public class ListMainActivity extends ActivityMain implements RecyclerViewItemCl
     public void getPost() {
         swipe.setRefreshing(true);
         http.get(controller.getUrl("post"))
+                .timeout(10000)
                 .handler(new ResponseHandler<TokenResponse>() {
                     @Override
+                    public void error(String message, HttpResponse response) {
+                        super.error(message, response);
+                        Toast.makeText(controller.getIns(), "Not correct please try againt", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(controller.getIns(), LoginActivity.class);
+                        startActivity(intent);
+                        if (progress != null) {
+                            progress.dismiss();
+                            progress = null;
+                        }
+                        finish();
+                    }
+
+                    @Override
                     public void failure(NetworkError error) {
+
+                        Toast.makeText(controller.getIns(), "Not correct please try again", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(controller.getIns(), LoginActivity.class);
+                        startActivity(intent);
+                        if (progress != null) {
+                            progress.dismiss();
+                            progress = null;
+                        }
                         super.failure(error);
-                        error.name();
+
+                        finish();
+
                     }
 
                     @Override
@@ -183,14 +219,21 @@ public class ListMainActivity extends ActivityMain implements RecyclerViewItemCl
 
         final HashMap<String, String> map = adapter.getComponentAt(position);
         Http http = HttpFactory.create(this);
-        http.get(controller.getUrl("user/" + map.get("user_id")))
+        http.get(controller.getUrl("user/" + map.get("user_id"))).timeout(10000)
                 .handler(new ResponseHandler<TokenResponse>() {
                     @Override
                     public void failure(NetworkError error) {
-                        super.failure(error);
-
                         progress.dismiss();
                         Toast.makeText(ListMainActivity.this, error.name(), Toast.LENGTH_SHORT).show();
+                        super.failure(error);
+
+                    }
+
+                    @Override
+                    public void error(String message, HttpResponse response) {
+                        progress.dismiss();
+                        super.error(message, response);
+
                     }
 
                     @Override

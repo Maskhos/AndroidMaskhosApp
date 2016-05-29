@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.application.maskhos.maskhosblogapi.Model.Post;
 import com.application.maskhos.maskhosblogapi.Model.TokenResponse;
@@ -71,14 +72,22 @@ public class AdapterListMain extends ArrayAdapter<HashMap<String, String>> {
         final ProgressBar loading = (ProgressBar) convertView.findViewById(R.id.loading);
 
         Http http = HttpFactory.create(getContext());
-        http.get(api + "user/" + map[position].get("user_id"))
+        http.get(api + "user/" + map[position].get("user_id")).timeout(10000)
                 .handler(new ResponseHandler<TokenResponse>() {
                     @Override
-                    public void failure(NetworkError error) {
-                        super.failure(error);
-                        error.name();
+                    public void error(String message, HttpResponse response) {
+                        Toast.makeText(getContext(), "Error retrieving comments " + message, Toast.LENGTH_SHORT).show();
                         loading.setVisibility(View.GONE);
+                        super.error(message, response);
+
                     }
+
+                    @Override
+                    public void failure(NetworkError error) {
+                        Toast.makeText(getContext(), "Error retrieving comments", Toast.LENGTH_SHORT).show();
+                        loading.setVisibility(View.GONE);
+                        super.failure(error);
+                     }
 
 
                     @Override
